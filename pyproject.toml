@@ -1,0 +1,7 @@
+[project]
+name = "gifora"
+version = "1.2.2"
+description = "Animated GIF, WebP and APNG desktop overlays"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["Pillow>=10.0,<13.0"]
