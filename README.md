@@ -1,74 +1,57 @@
 # Gifora
 
-Gifora, animasyonlu GIF, WebP ve APNG görsellerini masaüstünde konumlandırıp oynatır. Bu depo, uygulamanın kaynak kodunu ve Windows/Pardus paketleme dosyalarını içerir.
+Gifora, GIF, animasyonlu WebP ve APNG görsellerini masaüstünüzde oynatan bir Windows ve Linux uygulamasıdır. Görselleri ekran kenarlarına veya özel konumlara yerleştirebilir; boyut, saydamlık ve görünürlüklerini ayrı ayrı ayarlayabilirsiniz.
 
 ## Özellikler
 
-- Birden fazla masaüstü görselini bağımsız pencerelerde oynatma
 - GIF, animasyonlu WebP ve APNG desteği
-- Dosya listesinden veya Dosya Gezgini'nden sürükle-bırak ile ekleme
+- Dosya seçici ve sürükleyip bırakmayla görsel ekleme
 - Sol, sağ, köşe ve özel konumlar; çoklu ekran desteği
-- En-boy oranını koruyarak boyutlandırma, saydamlık ve görünürlük ayarları
-- Koleksiyonlar ve düzen profilleri
-- Tıklama geçişi, konum kilidi ve tam ekranda duraklatma seçenekleri
-- Windows bildirim alanına küçültme; görseller uygulama penceresi gizliyken de oynar
-- GIF şeffaf kenarlarında renk saçaklarını azaltan Windows iyileştirmesi
+- Görsel başına görünürlük ve oynatma; tümünü aç/kapat kontrolleri
+- Koleksiyon arama, düzen profilleri ve başlangıçta görünür görsellerin otomatik yüklenmesi
+- Tıklamaları alttaki pencereye geçirme, konum kilidi ve tam ekran algılama
+- Windows bildirim alanına küçültme; Gifora gizliyken animasyonlar çalışmaya devam eder
 
-## Hızlı başlangıç (Windows)
+## Windows'ta çalıştırma
 
-1. Python 3.10 veya üstünü ve Tkinter bileşenini kurun.
-2. Depo klasöründe PowerShell açın.
-3. Bağımlılıkları yükleyin: python -m pip install -r requirements.txt
-4. Uygulamayı başlatın: python src/gifora.py
+Python 3.10+ ve Tkinter kurulu olmalı.
 
-Sürükle-bırak özelliği depoya eklenmiş tkinterdnd2 bileşenini kullanır. Windows'ta Tkinter, Python kurulumundaki Tcl/Tk ile gelir.
+~~~powershell
+python -m pip install -r requirements.txt
+python src/gifora.py
+~~~
 
-## Windows EXE üretme
+## Windows EXE oluşturma
 
-1. Derleme bağımlılıklarını yükleyin: python -m pip install -r requirements-build.txt
-2. PowerShell'de .\packaging\build_windows.ps1 çalıştırın.
-3. EXE ve paylaşım ZIP'i dist klasörüne oluşturulur.
+~~~powershell
+python -m pip install -r requirements-build.txt
+.\packaging\build_windows.ps1
+~~~
 
-EXE'yi kaynak depoya eklemeyin. Hazır Windows EXE ve ZIP dosyaları release-assets klasöründe durur ve gitignore ile kaynak commit'lerinin dışında bırakılır. GitHub'da v1.2.2 etiketiyle bir Release oluşturup bu klasördeki iki dosyayı Release dosyası (asset) olarak ekleyin. Kullanıcılar kaynak kodu ve çalıştırılabilir Windows paketini ayrı indirir.
+EXE ve ZIP paketi dist klasöründe oluşturulur. Hazır uygulama paketleri kaynak deposuna eklenmez; GitHub Releases üzerinden paylaşılabilir.
 
 ## Pardus / Linux
 
-Pardus'ta Python 3, Tkinter, Pillow ve X11 sistem paketleri gerekir. Kaynak koddan başlatmak için:
+Python 3, Tkinter, Pillow ve X11 gerekir.
 
 ~~~bash
 python3 -m pip install -r requirements.txt
 python3 src/gifora.py
 ~~~
 
-Pardus .deb paketi oluşturmak için Linux/Pardus bilgisayarında python3 packaging/build_linux_deb.py çalıştırın. Paket dist/Gifora-Pardus.deb konumuna yazılır. Saydam kontur, tıklama geçişi ve tam ekran algılama için X11 oturumu gerekir; Wayland'de masaüstü kısıtları geçerlidir.
+X11; saydam kontur, tıklama geçişi ve tam ekran algılama için önerilir. Wayland bazı pencere kontrollerini kısıtlayabilir.
 
-## Proje yapısı
+## Testler
 
-~~~text
-Gifora-GitHub/
-├── .github/                 # Issue şablonları
-├── assets/                  # Uygulama simgesi ve mağaza kapağı
-├── packaging/               # Windows/Linux derleme ve mağaza metinleri
-├── release-assets/          # Hazır Windows dosyaları; git tarafından yok sayılır
-├── src/                     # Uygulama kaynak kodu ve gerekli vendored dosyalar
-├── tests/                   # Otomatik testler
-├── .gitignore
-├── CHANGELOG.md
-├── CONTRIBUTING.md
-├── pyproject.toml
-├── requirements.txt
-└── requirements-build.txt
+~~~bash
+python -m unittest discover -s tests -v
 ~~~
 
 ## Gizlilik
 
-Gifora dosyaları yerel olarak işler; görseller sunucuya yüklenmez. Tercihler Windows'ta %APPDATA%\Gifora, Linux'ta ~/.config/Gifora altında tutulur.
+Gifora görselleri yerel olarak işler ve sunucuya yüklemez. Ayarlar Windows'ta %APPDATA%\\Gifora, Linux'ta ~/.config/Gifora içinde saklanır.
 
 ## Geliştirici
 
 - LinkedIn: https://www.linkedin.com/in/arda-talha-tekinel-882176351/
 - GitHub: https://github.com/arda803
-
-## Lisans
-
-Gifora için açık kaynak lisansı henüz seçilmedi. Depoyu herkese açık yayımlamadan önce kodun kopyalanmasına, değiştirilmesine ve yeniden dağıtılmasına hangi koşullarda izin verileceğine karar verin. src/vendor/THIRD_PARTY_LICENSES içindeki lisans yalnızca tkinterdnd2 bağımlılığına aittir.
